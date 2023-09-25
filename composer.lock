@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83815c3bd3638b2022217ec50cc2c3a0",
+    "content-hash": "45c36e9d636aa3e6189226346ab5a30d",
     "packages": [
         {
             "name": "brick/math",
@@ -1871,16 +1871,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "9.2.0",
+            "version": "9.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "76c931b3013f30a0addfb30fca4106336e9bdafa"
+                "reference": "2c0e9cbeea6cff4e1b7688788e61f5024055b088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/76c931b3013f30a0addfb30fca4106336e9bdafa",
-                "reference": "76c931b3013f30a0addfb30fca4106336e9bdafa",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/2c0e9cbeea6cff4e1b7688788e61f5024055b088",
+                "reference": "2c0e9cbeea6cff4e1b7688788e61f5024055b088",
                 "shasum": ""
             },
             "require": {
@@ -1962,9 +1962,9 @@
             ],
             "support": {
                 "issues": "https://github.com/line/line-bot-sdk-php/issues",
-                "source": "https://github.com/line/line-bot-sdk-php/tree/9.2.0"
+                "source": "https://github.com/line/line-bot-sdk-php/tree/9.3.0"
             },
-            "time": "2023-09-06T02:12:53+00:00"
+            "time": "2023-09-15T02:25:22+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -5966,16 +5966,16 @@
         },
         {
             "name": "laravel/breeze",
-            "version": "v1.23.2",
+            "version": "v1.23.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/breeze.git",
-                "reference": "b14e90230abeb008a6da70c2de103de1ac53d485"
+                "reference": "4e7df3bb1346cd0136e1ea61d62c2ce8cf367975"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/b14e90230abeb008a6da70c2de103de1ac53d485",
-                "reference": "b14e90230abeb008a6da70c2de103de1ac53d485",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/4e7df3bb1346cd0136e1ea61d62c2ce8cf367975",
+                "reference": "4e7df3bb1346cd0136e1ea61d62c2ce8cf367975",
                 "shasum": ""
             },
             "require": {
@@ -6024,7 +6024,7 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-            "time": "2023-09-01T14:06:53+00:00"
+            "time": "2023-09-06T15:51:20+00:00"
         },
         {
             "name": "laravel/pint",
