@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+      // このUserが持つUserRecordsを取得
+    public function userRecords()
+    {
+        return $this->hasMany(UserRecord::class); // UserとUserRecordの関係を定義
+    }
 }

@@ -4,28 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
-
-// 追加のuse宣言
 use App\Services\LineBotService as LINEBot;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 
 class MessageController extends Controller
 {
-    public function index(Request $request) {
+    // LINEユーザーIDごとの一覧を表示するアクション
+    public function indexByLineUserId(Request $request) {
         $lineUsers = Message::groupBy('line_user_id')->get('line_user_id');
-        return view('message.index', ['lineUsers' => $lineUsers]);
+        return view('message.index_by_line_user_id', ['lineUsers' => $lineUsers]);
     }
 
-    public function show(Request $request) {
-        $messages = Message::where('line_user_id', $request->lineUserId)->get();
-        return view('message.show', ['lineUserId' => $request->lineUserId, 'messages' => $messages]);
+    public function show( $request) {
+       
+        $messages = Message::where('id', $request)->first();
+    
+        return view('messages.show', ['messages' => $messages]);
     }
- // 新しいcreateアクション
+
     public function create(Request $request) {
         Message::create([
             'line_user_id' => $request->lineUserId,
-            'text' => $request->message,
+            'value' => $request->message,
         ]);
 
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
@@ -34,6 +35,25 @@ class MessageController extends Controller
         $textMessageBuilder = new TextMessageBuilder($request->message);
         $response = $bot->pushMessage($request->lineUserId, $textMessageBuilder);
 
-        return redirect(route('message.show', ['lineUserId' => $request->lineUserId]));
+        return redirect(route('messages.show', ['lineUserId' => $request->lineUserId]));
     }
+
+    // 全てのメッセージの一覧を表示するアクション
+    public function index() {
+        $messages = Message::orderBy('created_at', 'desc')->get();
+        return view('messages.index', compact('messages'));
+    }
+    
+    public function destroy($id)
+{
+    $message = Message::find($id);
+    if ($message) {
+        $message->delete();
+        return redirect()->route('message.index')->with('success', 'Message deleted successfully');
+    } else {
+        return redirect()->route('message.index')->with('error', 'Message not found');
+    }
+}
+
+    
 }
