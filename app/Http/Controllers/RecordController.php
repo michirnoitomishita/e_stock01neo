@@ -6,9 +6,11 @@ use App\Models\Record;
 
 class RecordController extends Controller
 {
+    
+    
     public function store(Request $request)
     {
-        // dd($request->all());
+      
         // Validation
         $request->validate([
             'line_user_id' => 'required|string', // Add validation rule for line_user_id
@@ -26,13 +28,18 @@ class RecordController extends Controller
         $result = Record::create($request->all());
 
         // Redirection with Success Message
-        // return redirect()->route('record.show', ['id' => $result->id]);
-      return redirect()->route('message.show', ['request' => $result->id])->with('success', 'Record successfully created');
+    // $result に値が設定された後にリダイレクト
+return redirect()->route('record.show', ['id' => $result->id])->with('success', 'Record successfully created');
+    
+        
+// 修正後のリダイレクト行
+// return redirect()->route('record.show', ['id' => $result->id])->with('success', 'Record successfully created');
+        
     }
     
     public function show($id)
 {
     $record = Record::find($id);
-    return view('records.recordshow', ['record' => $record]);
+    return view('records.show', ['record' => $record]);
 }
 }

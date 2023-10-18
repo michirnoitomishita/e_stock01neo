@@ -12,11 +12,14 @@
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800">
           <div class="mb-6">
-            <div class="flex flex-col mb-4">
+           <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">LINEユーザーID</p>
               <p class="py-2 px-3 text-gray-800 dark:text-gray-200">
-                {{ $messages->line_user_id }}
+             <p class="py-2 px-3 text-gray-800 dark:text-gray-200">
+    {{ $messages->line_user_id }}
+</p>
               </p>
+            </div>
             </div>
             <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">LINEメッセージ</p>
@@ -31,8 +34,6 @@
                     {{ $messages->created_at->format('Y-m-d H:i:s') }}
                 </p>
             </div>
-        
-            
  
 
           <!-- Trainer Input Form -->
@@ -94,11 +95,11 @@
 
 
             <!-- Message Input -->
-        
-
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+    
+              <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Submit
             </button>
+
           </form>
 
 

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MessageController;  // 追加
-// use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\LineWebhookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +16,6 @@ use App\Http\Controllers\RecordController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::resource('message', MessageController::class);
-// messageController→MessageControllerに変更
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,37 +25,41 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-// LINEのWebhookエンドポイントは公開エンドポイントとして設定
+// LINEのWebhookエンドポイント
 Route::post('/line/webhook/message', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 
+// Message Routes
 
-// MessageController の index アクションへのルートを追加
-Route::get('/messages', [MessageController::class, 'index'])->name('message.index');
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+Route::get('/messages/show/{id}', [MessageController::class, 'show'])->name('message.show');
+Route::post('/messages/{id}', [MessageController::class, 'create'])->name('message.create');
+Route::post('/send-line-message', [MessageController::class, 'sendMessage'])->name('send-line-message.store');
 
-Route::get('/messages/show/{request}', [MessageController::class, 'show'])->name('message.show');
+// 'create'を除外してリソースルートを定義
+Route::resource('message', MessageController::class)->except(['create']);
 
-// 以下の行を追加トレーナーからの返信のルーティング
-Route::post('/message/{lineUserId}', [MessageController::class, 'create'])->name('message.create');
-
-
+// Middleware applied routes
 Route::middleware('auth')->group(function () {
+    // Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::get('/linelogin', 'LoginController@login')->name('linelogin');
-    // 追加部分ログイン画面
-    
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // Record Routes
+    Route::post('/record/store', [RecordController::class, 'store'])->name('record.store');
+    Route::get('/record/show/{id}', [RecordController::class, 'show'])->name('record.show');
+
+Route::post('/messages/create/{id}', [MessageController::class, 'create'])->name('message.create');
 
 
-    // 新しいRecordControllerのstoreメソッドへのルートを追加
-    Route::post('/record/store', [RecordController::class, 'store'])->name('record.store');// ここに追加
-    
-    
-   Route::get('/recordshow/{id}', [RecordController::class, 'show'])->name('record.show');
 
-
+    // Line User Routes
+    Route::get('/lineusers/{id}', [LineWebhookController::class, 'show'])->name('lineusers.show');
 });
+
+Route::get('/message-sent', function () {
+    return view('message-sent');
+})->name('message-sent');
+
 
 require __DIR__.'/auth.php';

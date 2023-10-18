@@ -20,4 +20,9 @@ class Record extends Model
         'carbohydrate', // 炭水化物を指定
         'mineral', // ミネラルを指定
         ];
+        
+         public function lineUser()
+    {
+        return $this->belongsTo(LineUser::class, 'line_user_id', 'line_user_id');
+    }
 }
